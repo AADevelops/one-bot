@@ -5,11 +5,14 @@ require("dotenv").config();
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-// Reading Directory and Filtering JS Files.
-const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+// Reading Directories and Filtering JS Files.
+const commandFolders = fs.readdirSync("./commands")
+for (const folder of commandFolders) {
+    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
+    for (const file of commandFiles) {
+        const command = require(`./commands/${folder}/${file}`);
+        client.commands.set(command.name, command);
+    }
 }
 
 // On Ready Event
