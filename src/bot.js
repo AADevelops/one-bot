@@ -29,14 +29,25 @@ client.on("message", (message) => {
     const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
 
-    if (!client.commands.has(commandName)) return;
+    // Command Not Found Error Handler
+    if (!client.commands.has(commandName)) {
+        message.channel.send(`**ERROR[${message.author}]:** "${message.content}" is not a valid command.`);
+    } else {
+        const command = client.commands.get(commandName);
 
-    const command = client.commands.get(commandName);
-    try {
-        command.execute(message, args, client);
-    } catch (error) {
-        console.error(error);
-        message.reply("ERROR: Cannot execute that command.");
+        if (command.permissions) {
+            const authorPermissions = message.channel.permissionsFor(message.author);
+            if (!authorPermissions || !authorPermissions.has(command.permissions)) {
+                return message.channel.send(`${message.author}, you're not allowed to run this command.`);
+            }
+        }
+
+        try {
+            command.execute(message, args, client);
+        } catch (error) {
+            console.error(error);
+            message.channel.send(`**ERROR[${message.author}]:** Cannot execute that command.`);
+        }
     }
 });
 
