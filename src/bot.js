@@ -1,16 +1,18 @@
+// Imports - Requires
 const Discord = require("discord.js");
 const fs = require("fs");
+const path = require("path");
 require("dotenv").config();
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
 // Reading Directories and Filtering JS Files.
-const commandFolders = fs.readdirSync("./commands")
+const commandFolders = fs.readdirSync(path.join(__dirname, "commands"))
 for (const folder of commandFolders) {
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
+    const commandFiles = fs.readdirSync(path.join(__dirname, `commands/${folder}`)).filter(file => file.endsWith(".js"));
     for (const file of commandFiles) {
-        const command = require(`./commands/${folder}/${file}`);
+        const command = require(path.join(__dirname, `commands/${folder}/${file}`));
         client.commands.set(command.name, command);
     }
 }
