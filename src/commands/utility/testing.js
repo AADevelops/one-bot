@@ -1,6 +1,7 @@
 module.exports = {
     name: "testing",
     description: "Testing command.",
+    usage: `${process.env.PREFIX}testing [optional<hi>] [optional<bye>]`,
     execute(message, args) {
         if (!args.length) {
             message.channel.send("Test Successful.");
