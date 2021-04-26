@@ -30,11 +30,10 @@ client.on("message", (message) => {
     const commandName = args.shift().toLowerCase();
 
     // Command Not Found Error Handler
-    if (!client.commands.has(commandName)) {
+    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName)); 
+    if (!command) {
         message.channel.send(`**ERROR[${message.author}]:** "${message.content}" is not a valid command.`);
     } else {
-        const command = client.commands.get(commandName);
-
         if (command.permissions) {
             const authorPermissions = message.channel.permissionsFor(message.author);
             if (!authorPermissions || !authorPermissions.has(command.permissions)) {
