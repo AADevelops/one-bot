@@ -1,6 +1,6 @@
 module.exports = {
     name: "say",
-    aliases: ["announce"],
+    aliases: ["announce", "echo"],
     description: "Used to speak through the bot.",
     usage: `${process.env.PREFIX}say [optional<channel-Id>] <message>`,
     permissions: "ADMINISTRATOR",
