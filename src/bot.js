@@ -32,21 +32,21 @@ client.on("message", (message) => {
     // Command Not Found Error Handler
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName)); 
     if (!command) {
-        message.channel.send(`**ERROR[${message.author}]:** "${message.content}" is not a valid command.`);
-    } else {
-        if (command.permissions) {
-            const authorPermissions = message.channel.permissionsFor(message.author);
-            if (!authorPermissions || !authorPermissions.has(command.permissions)) {
-                return message.channel.send(`${message.author}, you're not allowed to run this command.`);
-            }
-        }
+        return message.channel.send(`**ERROR[${message.author}]:** "${message.content}" is not a valid command.`);
+    }
 
-        try {
-            command.execute(message, args, client);
-        } catch (error) {
-            console.error(error);
-            message.channel.send(`**ERROR[${message.author}]:** Cannot execute that command.`);
+    if (command.permissions) {
+        const authorPermissions = message.channel.permissionsFor(message.author);
+        if (!authorPermissions || !authorPermissions.has(command.permissions)) {
+            return message.channel.send(`${message.author}, you're not allowed to run this command.`);
         }
+    }
+
+    try {
+        command.execute(message, args, client);
+    } catch (error) {
+        console.error(error);
+        message.channel.send(`**ERROR[${message.author}]:** Command Error. Cannot execute that command.`);
     }
 });
 
