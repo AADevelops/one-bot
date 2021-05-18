@@ -28,6 +28,6 @@ module.exports = {
         "Outlook not so good.", 
         "Very doubtful."]
 
-        message.channel.send(`Question: ${args.join(" ")} ${"\n"}Response: ${responses[Math.floor(Math.random() * 20)]}`);
+        message.channel.send(`Question: ${args.join(" ")} ${"\n"}Response: ${responses[Math.floor((Math.random() * 20) + 1)]}`);
     }
 }
