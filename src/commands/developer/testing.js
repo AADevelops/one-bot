@@ -1,3 +1,5 @@
+// Testing
+
 module.exports = {
     name: "testing",
     description: "Testing command.",
