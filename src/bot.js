@@ -23,7 +23,7 @@ client.on("ready", () => {
 });
 
 // On Message Event
-client.on("message", (message) => {
+client.on("message", message => {
     if (!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
 
     const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
