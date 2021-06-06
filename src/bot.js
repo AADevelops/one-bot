@@ -14,12 +14,13 @@ for (const folder of commandFolders) {
     for (const file of commandFiles) {
         const command = require(path.join(__dirname, `commands/${folder}/${file}`));
         client.commands.set(command.name, command);
+        console.log(`${command.name} has been loaded.`);
     }
 }
 
 // On Ready Event
 client.on("ready", () => {
-    console.log(`Bot ${client.user.tag} is ready.`);
+    console.log(`\nBot ${client.user.tag} is ready.\n`);
 });
 
 // On Message Event
