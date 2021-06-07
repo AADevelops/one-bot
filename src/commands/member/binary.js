@@ -4,7 +4,7 @@ module.exports = {
     usage: `${process.env.PREFIX}binary <decimalNumber>`,
     execute(message, args) {
         if (!args.length) {
-            message.channel.send(`${message.author}, you must include the decimal number after the command.`)
+            return message.channel.send(`${message.author}, you must include the decimal number after the command.`)
         }
 
         const result = (parseInt(args[0])).toString(2);
